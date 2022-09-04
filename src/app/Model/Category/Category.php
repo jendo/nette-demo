@@ -23,6 +23,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
 
+    public const TABLE_NAME = 'category';
+
+    public const COLUMN_ID = 'id';
+    public const COLUMN_PARENT = 'parent_id';
+    public const COLUMN_NAME = 'name';
+    public const COLUMN_URL = 'url';
+    public const COLUMN_LFT = 'lft';
+    public const COLUMN_RGT = 'rgt';
+    public const COLUMN_CREATED = 'created';
+    public const COLUMN_UPDATED = 'updated';
+    public const COLUMN_DELETED = 'deleted';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -93,6 +105,22 @@ class Category
     {
         $this->children = new ArrayCollection();
         $this->products = new ArrayCollection();
+    }
+
+    public static function createFromArray(array $data): self
+    {
+        $category  = new self();
+        $category->id = $data[self::COLUMN_ID];
+        $category->name = $data[self::COLUMN_NAME];
+        $category->parent = $data[self::COLUMN_PARENT];
+        $category->url = $data[self::COLUMN_URL];
+        $category->lft = $data[self::COLUMN_LFT];
+        $category->rgt = $data[self::COLUMN_RGT];
+        $category->created = $data[self::COLUMN_CREATED];
+        $category->updated = $data[self::COLUMN_UPDATED];
+        $category->deleted = $data[self::COLUMN_DELETED];
+
+        return $category;
     }
 
     public function getId(): int
