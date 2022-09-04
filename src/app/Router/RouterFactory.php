@@ -1,21 +1,26 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Router;
 
-use Nette;
+use App\Model\Category\CategoryRepository;
 use Nette\Application\Routers\RouteList;
 
 
 final class RouterFactory
 {
-	use Nette\StaticClass;
 
-	public static function createRouter(): RouteList
+    private CategoryRepository $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    public function createRouter(): RouteList
 	{
 		$router = new RouteList;
-        $router->addRoute('category/<slug  [a-z-]+>','Category:default');
+        $router->add(new CategoryRoute($this->categoryRepository));
 		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}

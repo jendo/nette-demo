@@ -1,5 +1,6 @@
 services:
-	- App\Router\RouterFactory::createRouter
+	routerFactory: App\Router\RouterFactory
+	router: @routerFactory::createRouter()
 	commands.foo:
 		class: App\Console\AddUserCommand
 		tags: [console.command: user:add]
