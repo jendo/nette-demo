@@ -42,6 +42,7 @@ final class CategoryPresenter extends Nette\Application\UI\Presenter
         $this->template->setParameters([
             'categoryId' => $this->category->getId(),
             'categoryName' => $this->category->getName(),
+            'products' => $this->category->getProducts(),
         ]);
     }
 
